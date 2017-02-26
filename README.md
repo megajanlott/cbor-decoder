@@ -3,6 +3,15 @@
 `cbor-decoder` is a Python library for decoding raw **CBOR** data to JSON or
 Python data structures.
 
+## features
+
+- install via `pip`
+- a single function for decoding raw CBOR data
+- different interfaces
+  - decode straight to JSON
+  - decode to Python data structures
+  - decode from Python streams, files and strings
+
 ## roadmap
 
 1. get familiar with CBOR
@@ -30,4 +39,4 @@ Python data structures.
     - with coverage report
     - merged into master after review and if CI is passing
   - release
-4. create a simple sample application if there is time
+4. create a simple sample application if there is time for demonstration
