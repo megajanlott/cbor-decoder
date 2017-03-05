@@ -15,4 +15,4 @@ Python data structures.
 $ pip install cbor-decoder
 ```
 
-## [API Reference](./api.md)
+## [API Reference](./docs/api.md)
