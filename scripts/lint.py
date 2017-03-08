@@ -2,7 +2,6 @@
 """
 Does pylint linting and pycodestyle (PEP8) code style checks on the modules.
 """
-
 import os
 import sys
 from pycodestyle import Checker, StyleGuide
