@@ -26,5 +26,5 @@ setup(
     ],
     keywords='cbor json python decoder',
     packages=find_packages(exclude=['docs', 'examples', 'scripts', 'tests']),
-    tests_require=['pycodestyle'],
+    tests_require=['pycodestyle', 'pylint'],
 )
