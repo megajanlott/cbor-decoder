@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Does pylint linting and pycodestyle (PEP8) code style checks on the modules.
 """
