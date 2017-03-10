@@ -1,7 +1,7 @@
 language: python
-# testing against all stable python3 versions
+# testing against multiple stable python3 versions
+# most recent pytest does not support python 3.2
 python:
-  - "3.2"
   - "3.3"
   - "3.4"
   - "3.5"
