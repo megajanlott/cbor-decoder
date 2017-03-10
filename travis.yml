@@ -1,0 +1,14 @@
+language: python
+# testing against all stable python3 versions
+python:
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+# command to install dependencies
+install:
+  - pip install -U pytest
+# command to run tests
+script:
+  - pytest
