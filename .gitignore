@@ -3,3 +3,5 @@
 */**/__pycache__
 
 cbor_decoder.egg-info
+*/**/*.pyc
+.cache

@@ -15,4 +15,13 @@ Python data structures.
 $ pip install cbor-decoder
 ```
 
+## Run tests
+
+```
+$ pip install -U pytest
+$ pytest
+```
+
+Please use the naming convention `test_*.py` for test files, as this is the required format for pytest.
+
 ## [API Reference](./docs/api.md)
