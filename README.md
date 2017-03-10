@@ -1,5 +1,7 @@
 # cbor-decoder
 
+[![Build Status](https://travis-ci.org/megajanlott/cbor-decoder.svg?branch=master)](https://travis-ci.org/megajanlott/cbor-decoder)
+
 ## Overview
 
 `cbor-decoder` is a Python library for decoding raw **CBOR** data to JSON or
