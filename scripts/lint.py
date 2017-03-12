@@ -31,13 +31,14 @@ def pep8_module(module_name):
 
 def lint_module(module_name):
     """return whether the given module passes linting"""
-    status = pylint.lint.Run(['-r', 'n', module_name], None, False).linter.msg_status
+    lint_run = pylint.lint.Run(['-E', module_name], None, False)
+    exit_code = lint_run.linter.msg_status
     evaluation = {
-        'has_fatal': status & 1 == 1,
-        'has_error': status & 2 == 2,
-        'has_warning': status & 4 == 4,
-        'has_refactor': status & 8 == 8,
-        'has_convention': status & 16 == 16,
+        'has_fatal': exit_code & 1 == 1,
+        'has_error': exit_code & 2 == 2,
+        'has_warning': exit_code & 4 == 4,
+        'has_refactor': exit_code & 8 == 8,
+        'has_convention': exit_code & 16 == 16,
     }
     return not evaluation['has_fatal'] and not evaluation['has_error']
 
