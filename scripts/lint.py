@@ -25,7 +25,7 @@ def pep8_module(module_name):
     success = True
     for subdir, dirs, files in os.walk(os.path.join(ROOT_PATH, module_name)):
         for file in files:
-            if file[-3:] == '.py':
+            if file.endswith('.py'):
                 if not pep8_file(os.path.join(subdir, file)):
                     success = False
     return success
