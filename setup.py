@@ -22,7 +22,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
-        'Topic :: Software Development :: Interpreters',
+        'Topic :: Software Development',
     ],
     keywords='cbor json python decoder',
     packages=find_packages(exclude=['docs', 'examples', 'scripts', 'tests']),
