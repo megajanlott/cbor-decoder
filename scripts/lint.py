@@ -8,7 +8,7 @@ from pycodestyle import Checker, StyleGuide
 import pylint.lint
 
 ROOT_PATH = os.path.join(os.path.dirname(__file__), '..')
-MODULES_TO_CHECK = ['cbor', 'scripts']
+MODULES_TO_CHECK = ['cbor', 'examples', 'scripts']
 PEP8_OPTIONS = StyleGuide(config_file=os.path.join(ROOT_PATH, 'setup.cfg')).options
 
 
