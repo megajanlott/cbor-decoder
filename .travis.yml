@@ -2,8 +2,6 @@ language: python
 # testing against multiple stable python3 versions
 # most recent pytest does not support python 3.2
 python:
-  - "3.3"
-  - "3.4"
   - "3.5"
   - "3.6"
 # command to install dependencies
