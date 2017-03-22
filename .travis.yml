@@ -6,7 +6,7 @@ python:
   - "3.6"
 # command to install dependencies
 install:
-  - pip install .[lint, test]
+  - pip install .[lint,test]
 # command to run tests
 script:
   - python scripts/test.py
