@@ -28,5 +28,6 @@ setup(
     packages=find_packages(exclude=['docs', 'examples', 'scripts', 'tests']),
     extras_require={
         'lint': ['pycodestyle', 'pylint'],
+        'test': ['pytest'],
     },
 )
