@@ -20,10 +20,10 @@ $ pip install cbor-decoder
 ## Run tests
 
 ```
-$ pip install -U pytest
-$ pytest
+$ pip3 install -e .[test]
+$ python3 scripts/test.py
 ```
 
-Please use the naming convention `test_*.py` for test files, as this is the required format for pytest.
+Use the naming convention `test_*.py` for test files, as this is the required format for pytest.
 
 ## [API Reference](./docs/api.md)
