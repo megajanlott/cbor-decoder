@@ -1,4 +1,6 @@
-class MajorTypeInterface:
+from cbor.CBORStream import CBORStream
 
-    def decode(self, stream):
+
+class MajorTypeInterface:
+    def decode(self, stream: CBORStream):
         raise NotImplementedError
