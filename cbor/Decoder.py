@@ -9,8 +9,8 @@ class Decoder:
     def decode(self, stream: RawIOBase):
         pass
 
-    def decodeHex(self, array: bytes):
+    def decode_hex(self, array: bytes):
         pass
 
-    def decodeHex(self, stream: RawIOBase):
+    def decode_hex(self, stream: RawIOBase):
         pass
