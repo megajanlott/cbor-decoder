@@ -21,4 +21,5 @@ class Decoder:
         return self.__decode(decode_stream)
 
     def __decode(self, stream: CBORStream):
+        stream.peek()
         pass
