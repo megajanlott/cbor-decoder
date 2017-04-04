@@ -1,25 +1,24 @@
+from io import RawIOBase, BytesIO
 from cbor.CBORStream import CBORStream
 from cbor.HexBinStream import HexBinStream
-from io import RawIOBase, BytesIO
 
 
 class Decoder:
-    def decode(self, array: bytes):
+    def decode_array(self, array: bytes):
         decode_stream = CBORStream(BytesIO(array))
         return self.__decode(decode_stream)
 
-    def decode(self, stream: RawIOBase):
+    def decode_stream(self, stream: RawIOBase):
         decode_stream = CBORStream(stream)
         return self.__decode(decode_stream)
 
-    def decode_hex(self, array: bytes):
+    def decode_hex_array(self, array: bytes):
         decode_stream = HexBinStream(BytesIO(array))
         return self.__decode(decode_stream)
 
-    def decode_hex(self, stream: RawIOBase):
+    def decode_hex_stream(self, stream: RawIOBase):
         decode_stream = HexBinStream(stream)
         return self.__decode(decode_stream)
 
     def __decode(self, stream: CBORStream):
         stream.peek()
-        pass
