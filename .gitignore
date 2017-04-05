@@ -5,3 +5,5 @@
 cbor_decoder.egg-info
 */**/*.pyc
 .cache
+
+.idea
