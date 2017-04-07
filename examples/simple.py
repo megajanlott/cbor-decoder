@@ -1,10 +1,12 @@
 import os
 import sys
+from io import RawIOBase, BytesIO
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
 
-from cbor import decode
+from cbor.Decoder import Decoder
 
 if __name__ == '__main__':
-    decoded = decode("Data to decode")
-
-    print("Decoded:", decoded)
+    d = Decoder()
+    data = bytes([3, 4, 5])
+    print(BytesIO(data))
+    print("Decoded:", d.decode_array(data))
