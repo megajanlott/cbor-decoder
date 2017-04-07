@@ -6,7 +6,10 @@ class Stack:
          return self.items == []
 
      def push(self, item):
-         self.items.append(item)
+         if isinstance(item, list):
+             self.items.extend(item)
+         else:
+             self.items.append(item)
 
      def pop(self):
          return self.items.pop()
