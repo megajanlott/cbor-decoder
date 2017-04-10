@@ -1,5 +1,4 @@
 """
     cbor-decoder
 """
-
-from cbor.decode import decode
+# from cbor.decode import decode
