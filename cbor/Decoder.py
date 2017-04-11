@@ -31,4 +31,4 @@ class Decoder:
             new_states = top.run(stream, handler)
 
             if new_states:
-                stack.push(push_value)
+                stack.push(new_states)
