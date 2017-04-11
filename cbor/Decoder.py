@@ -25,8 +25,10 @@ class Decoder:
     def __decode(self, stream: CBORStream, handler):
         stack = Stack()
         stack.push(MajorType())
-        done = False
-        while not done:
+
+        while not stack.isEmpty():
             top = stack.pop()
-            push_value = top.run(stream, None)
-            stack.push(push_value)
+            new_states = top.run(stream, handler)
+
+            if new_states:
+                stack.push(push_value)

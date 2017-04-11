@@ -13,12 +13,12 @@ class MajorType(State):
 
         if t == 0:
             # should return the proper major type instance
-            return 'Unsigned int'
+            return
         elif t == 1:
             # should return the proper major type instance
-            return 'Negative int'
+            return
 
-        return 'No type'
+        return
 
     def type(self):
         raise NotImplementedError
