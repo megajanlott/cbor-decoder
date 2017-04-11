@@ -1,10 +1,28 @@
 from cbor.CBORStream import CBORStream
 from cbor.State import State
+from examples.simple import printer
 
+MAJOR_TYPE_MASK = 0b11100000
+ADDITIONAL_DATA_LENGTH_MASK = 0b00011111
+MAJOR_TYPE_SIZE = 3
 
 class UIntInfo(State):
     def run(self, stream: CBORStream, handler):
-        return
+        current_value = stream.peek(1)
+        last_five_bits = ord(current_value) & ADDITIONAL_DATA_LENGTH_MASK
+        if last_five_bits < 24:
+            printer(current_value)
+            return []
+        elif last_five_bits == 24:
+            additional_bytes = 1
+        elif last_five_bits == 25:
+            additional_bytes = 2
+        elif last_five_bits == 26:
+            additional_bytes = 4
+        elif last_five_bits == 27:
+            additional_bytes = 8
+
+        return UIntRead(additional_bytes)
 
     def type(self):
         raise NotImplementedError
@@ -15,7 +33,9 @@ class UIntRead(State):
         self.n = n
 
     def run(self, stream: CBORStream, handler):
-        return
+        readed = stream.peek(self.n)
+        printer(readed)
+        return []
 
     def type(self):
         raise NotImplementedError
