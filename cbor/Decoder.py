@@ -2,6 +2,7 @@ from io import RawIOBase, BytesIO
 from cbor.CBORStream import CBORStream
 from cbor.HexBinStream import HexBinStream
 from cbor.MajorType import MajorType
+from cbor.Stack import Stack
 
 
 class Decoder:
@@ -22,5 +23,12 @@ class Decoder:
         return self.__decode(decode_stream, handler)
 
     def __decode(self, stream: CBORStream, handler):
-        mt = MajorType()
-        return mt.run(stream, None)
+        stack = Stack()
+        stack.push(MajorType())
+
+        while not stack.isEmpty():
+            top = stack.pop()
+            new_states = top.run(stream, handler)
+
+            if new_states:
+                stack.push(new_states)

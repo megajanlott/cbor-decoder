@@ -12,6 +12,6 @@ def printer(data):
 
 if __name__ == '__main__':
     d = Decoder()
-    data = bytes([3, 4, 5])
+    data = bytes(3)
     print(BytesIO(data))
     print("Decoded:", d.decode_array(data, printer))
