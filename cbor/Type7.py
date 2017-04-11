@@ -32,8 +32,9 @@ def decode_simple_value(value):
 
 class Type7Info(State):
 
-    def run(self, stream: CBORStream, handler):
+    def run(self, stream: CBORStream, handler = None):
         current = stream.read(1)
+        current = int.from_bytes(current, byteorder='big')
 
         add_inf = (current & ADDITIONAL_INFORMATION_MASK)
 
@@ -58,8 +59,9 @@ class Type7Info(State):
 
 class Type7Read(State):
 
-    def run(self, stream: CBORStream, handler):
+    def run(self, stream: CBORStream, handler = None):
         value = stream.read(1)
+        value = int.from_bytes(value, byteorder='big')
 
         simple_value = decode_simple_value(value)
         handler(simple_value)
@@ -74,11 +76,10 @@ class FloatRead(State):
     def __init__(self, n):
         self.bytes_to_read = n
 
-    def run(self, stream: CBORStream, handler):
+    def run(self, stream: CBORStream, handler = None):
         value = stream.read(self.bytes_to_read)
-        float.fromhex(value)
-
-        float_value = decode_simple_value(value)
+        int_value = int.from_bytes(value,byteorder='big')
+        float_value = float(int_value,0)
         handler(float_value)
         return None
 
