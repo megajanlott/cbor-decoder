@@ -10,12 +10,14 @@ def test_init():
     stack = Stack()
     assert stack.items == []
 
+
 def test_isEmpty():
     stack = Stack()
-    assert stack.isEmpty() == True
+    assert stack.isEmpty() is True
     stack = Stack()
     stack.push(10)
-    assert stack.isEmpty() == False
+    assert stack.isEmpty() is False
+
 
 def test_push():
     stack = Stack()
@@ -24,12 +26,14 @@ def test_push():
     stack.push('test')
     assert stack.items == [5, 'test']
 
+
 def test_push_array():
     stack = Stack()
     stack.push([3, 4])
     assert stack.items == [3, 4]
     stack.push(['test', [5, 6]])
     assert stack.items == [3, 4, 'test', [5, 6]]
+
 
 def test_pop():
     stack = Stack()
@@ -40,11 +44,13 @@ def test_pop():
     with pytest.raises(Exception):
         stack.pop()
 
+
 def test_peek():
     stack = Stack()
     stack.push([1, 3, 4])
     assert stack.peek() == 4
     assert stack.items == [1, 3, 4]
+
 
 def test_size():
     stack = Stack()
