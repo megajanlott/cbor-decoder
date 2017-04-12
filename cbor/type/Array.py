@@ -51,4 +51,5 @@ class ArrayLen(State):
 class ArrayInf(State):
 
     def run(self, stream: CBORStream, handler):
+        handler(',')
         return [MajorType(), ArrayInf()]
