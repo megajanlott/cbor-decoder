@@ -45,4 +45,4 @@ class ArrayLen(State):
 class ArrayInf(State):
 
     def run(self, stream: CBORStream, handler):
-        pass
+        return [MajorType(), ArrayInf()]
