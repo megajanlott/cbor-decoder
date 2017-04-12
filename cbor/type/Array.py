@@ -8,6 +8,7 @@ class ArrayInfo(State):
     def run(self, stream: CBORStream, handler):
         info = stream.read(1)
         length = ord(info) & 0b00011111
+        handler('[')
         if length < 24:
             return [MajorType(), ArrayRead(length)]
         elif length == 24:
@@ -20,6 +21,7 @@ class ArrayInfo(State):
             return [ArrayLen(8)]
         elif length == 31:
             return [MajorType(), ArrayInf()]
+        return []
 
 
 class ArrayRead(State):
@@ -28,7 +30,11 @@ class ArrayRead(State):
         self.n = n
 
     def run(self, stream: CBORStream, handler):
-        pass
+        if self.n > 0:
+            handler(',')
+            return [MajorType, ArrayRead(self.n - 1)]
+        handler(']')
+        return []
 
 
 class ArrayLen(State):
