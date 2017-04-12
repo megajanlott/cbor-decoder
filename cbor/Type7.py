@@ -11,8 +11,8 @@ inf_end = 31
 
 
 def decode_simple_value(value):
-    if value <=19:
-        #unassigned
+    if value <= 19:
+        # unassigned
         return 'pass'
     elif value == 20:
         return 'False'
@@ -21,14 +21,15 @@ def decode_simple_value(value):
     elif value == 22:
         return 'Null'
     elif value == 23:
-        #undefined
+        # undefined
         return 'pass'
-    elif ((value>=24) & (value<=31)):
-        #reserved
+    elif ((value >= 24) & (value <= 31)):
+        # reserved
         return 'pass'
     else:
-        #unassigned
+        # unassigned
         return 'pass'
+
 
 class Type7Info(State):
 
@@ -43,7 +44,7 @@ class Type7Info(State):
             handler(simple_value)
             return None
         elif add_inf == simple_value_next:
-            return Type7Read
+            return Type7Read()
         elif add_inf == float_2byte_next:
             return FloatRead(2)
         elif add_inf == float_4byte_next:
@@ -78,8 +79,8 @@ class FloatRead(State):
 
     def run(self, stream: CBORStream, handler = None):
         value = stream.read(self.bytes_to_read)
-        int_value = int.from_bytes(value,byteorder='big')
-        float_value = float(int_value,0)
+        int_value = int.from_bytes(value, byteorder='big')
+        float_value = float(int_value, 0)
         handler(float_value)
         return None
 
