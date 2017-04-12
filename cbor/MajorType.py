@@ -1,6 +1,6 @@
 from cbor.CBORStream import CBORStream
 from cbor.State import State
-from cbor.type.Array import ArrayInf
+from cbor.type.Array import ArrayInfo
 
 MAJOR_TYPE_MASK = 0b11100000
 MAJOR_TYPE_SIZE = 3
@@ -19,7 +19,7 @@ class MajorType(State):
             # should return the proper major type instance
             return
         elif t == 4:
-            return ArrayInf()
+            return ArrayInfo()
 
         return
 
