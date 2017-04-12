@@ -10,7 +10,7 @@ class ArrayInfo(State):
         length = ord(info) & 0b00011111
         handler('[')
         if length < 24:
-            return [MajorType(), ArrayRead(length)]
+            return [MajorType(), ArrayRead(length, True)]
         elif length == 24:
             return [ArrayLen(1)]
         elif length == 25:
@@ -20,18 +20,20 @@ class ArrayInfo(State):
         elif length == 27:
             return [ArrayLen(8)]
         elif length == 31:
-            return [MajorType(), ArrayInf()]
+            return [MajorType(), ArrayInf(True)]
         return []
 
 
 class ArrayRead(State):
 
-    def __init__(self, n: int):
+    def __init__(self, n: int, first: bool = False):
         self.n = n
+        self.first = first
 
     def run(self, stream: CBORStream, handler):
         if self.n > 0:
-            handler(',')
+            if not self.first:
+                handler(',')
             return [MajorType(), ArrayRead(self.n - 1)]
         handler(']')
         return []
@@ -50,6 +52,10 @@ class ArrayLen(State):
 
 class ArrayInf(State):
 
+    def __init__(self, first: bool = False):
+        self.first = first
+
     def run(self, stream: CBORStream, handler):
-        handler(',')
+        if not self.first:
+            handler(',')
         return [MajorType(), ArrayInf()]
