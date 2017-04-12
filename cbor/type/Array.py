@@ -37,7 +37,9 @@ class ArrayLen(State):
         self.n = n
 
     def run(self, stream: CBORStream, handler):
-        pass
+        info = stream.read(self.n)
+        length = int.from_bytes(info, byteorder='big')
+        return [MajorType(), ArrayRead(length)]
 
 
 class ArrayInf(State):
