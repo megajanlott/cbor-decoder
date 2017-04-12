@@ -32,7 +32,7 @@ class ArrayRead(State):
     def run(self, stream: CBORStream, handler):
         if self.n > 0:
             handler(',')
-            return [MajorType, ArrayRead(self.n - 1)]
+            return [MajorType(), ArrayRead(self.n - 1)]
         handler(']')
         return []
 
