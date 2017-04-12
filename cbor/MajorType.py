@@ -22,6 +22,3 @@ class MajorType(State):
             return ArrayInfo()
 
         return
-
-    def type(self):
-        raise NotImplementedError

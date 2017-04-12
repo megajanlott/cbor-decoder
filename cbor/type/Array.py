@@ -1,52 +1,32 @@
 from cbor.CBORStream import CBORStream
-from cbor.MajorType import MajorType
+from cbor.State import State
 
 
-class ArrayInfo(MajorType):
-
-    def __init__(self):
-        pass
+class ArrayInfo(State):
 
     def run(self, stream: CBORStream, handler):
         pass
 
-    def type(self):
-        pass
 
-
-class ArrayRead(MajorType):
+class ArrayRead(State):
 
     def __init__(self, n: int):
         self.n = n
-        pass
 
     def run(self, stream: CBORStream, handler):
         pass
 
-    def type(self):
-        pass
 
-
-class ArrayLen(MajorType):
+class ArrayLen(State):
 
     def __init__(self, n: int):
         self.n = n
-        pass
 
     def run(self, stream: CBORStream, handler):
         pass
 
-    def type(self):
-        pass
 
-
-class ArrayInf(MajorType):
-
-    def __init__(self):
-        pass
+class ArrayInf(State):
 
     def run(self, stream: CBORStream, handler):
-        pass
-
-    def type(self):
         pass
