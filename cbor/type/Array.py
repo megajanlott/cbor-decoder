@@ -9,7 +9,9 @@ class ArrayInfo(cbor.State.State):
         info = stream.read(1)
         length = ord(info) & 0b00011111
         handler('[')
-        if length < 24:
+        if length == 0:
+            handler(']')
+        elif length < 24:
             return [cbor.MajorType.MajorType(), ArrayRead(length)]
         elif length == 24:
             return [ArrayLen(1)]
