@@ -26,6 +26,9 @@ class ArrayInfo(cbor.State.State):
 
 class ArrayRead(cbor.State.State):
 
+    def __eq__(self, other):
+        return self.n == other.n
+
     def __init__(self, n: int):
         self.n = n
 
@@ -38,6 +41,9 @@ class ArrayRead(cbor.State.State):
 
 
 class ArrayLen(cbor.State.State):
+
+    def __eq__(self, other):
+        return self.n == other.n
 
     def __init__(self, n: int):
         self.n = n
