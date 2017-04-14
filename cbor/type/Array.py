@@ -1,16 +1,16 @@
-from cbor.CBORStream import CBORStream
-from cbor.MajorType import MajorType
-from cbor.State import State
+import cbor.CBORStream
+import cbor.MajorType
+import cbor.State
 
 
-class ArrayInfo(State):
+class ArrayInfo(cbor.State.State):
 
-    def run(self, stream: CBORStream, handler):
+    def run(self, stream: cbor.CBORStream.CBORStream, handler):
         info = stream.read(1)
         length = ord(info) & 0b00011111
         handler('[')
         if length < 24:
-            return [MajorType(), ArrayRead(length)]
+            return [cbor.MajorType.MajorType(), ArrayRead(length)]
         elif length == 24:
             return [ArrayLen(1)]
         elif length == 25:
@@ -20,36 +20,36 @@ class ArrayInfo(State):
         elif length == 27:
             return [ArrayLen(8)]
         elif length == 31:
-            return [MajorType(), ArrayInf()]
+            return [cbor.MajorType.MajorType(), ArrayInf()]
         return []
 
 
-class ArrayRead(State):
+class ArrayRead(cbor.State.State):
 
     def __init__(self, n: int):
         self.n = n
 
-    def run(self, stream: CBORStream, handler):
+    def run(self, stream: cbor.CBORStream.CBORStream, handler):
         if self.n > 1:
             handler(',')
-            return [MajorType(), ArrayRead(self.n - 1)]
+            return [cbor.MajorType.MajorType(), ArrayRead(self.n - 1)]
         handler(']')
         return []
 
 
-class ArrayLen(State):
+class ArrayLen(cbor.State.State):
 
     def __init__(self, n: int):
         self.n = n
 
-    def run(self, stream: CBORStream, handler):
+    def run(self, stream: cbor.CBORStream.CBORStream, handler):
         info = stream.read(self.n)
         length = int.from_bytes(info, byteorder='big')
-        return [MajorType(), ArrayRead(length)]
+        return [cbor.MajorType.MajorType(), ArrayRead(length)]
 
 
-class ArrayInf(State):
+class ArrayInf(cbor.State.State):
 
-    def run(self, stream: CBORStream, handler):
+    def run(self, stream: cbor.CBORStream.CBORStream, handler):
         handler(',')
-        return [MajorType(), ArrayInf()]
+        return [cbor.MajorType.MajorType(), ArrayInf()]
