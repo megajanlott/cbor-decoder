@@ -1,9 +1,4 @@
-import os
-import sys
-import pytest
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
-
-from io import RawIOBase, BytesIO
+from io import BytesIO
 from cbor.MajorType import MajorType
 from cbor.CBORStream import CBORStream
 
