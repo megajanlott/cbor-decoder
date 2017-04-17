@@ -1,4 +1,4 @@
-from cbor.CBORStream import CBORStream
+from CBORStream import CBORStream
 from abc import ABC, abstractmethod
 
 
