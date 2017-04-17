@@ -1,5 +1,6 @@
 from cbor.CBORStream import CBORStream
 from cbor.State import State
+from cbor.type.Array import ArrayInfo
 
 MAJOR_TYPE_MASK = 0b11100000
 MAJOR_TYPE_SIZE = 3
@@ -17,8 +18,7 @@ class MajorType(State):
         elif t == 1:
             # should return the proper major type instance
             return
+        elif t == 4:
+            return ArrayInfo()
 
         return
-
-    def type(self):
-        raise NotImplementedError

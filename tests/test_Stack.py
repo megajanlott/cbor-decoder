@@ -1,8 +1,4 @@
-import os
-import sys
 import pytest
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
-
 from cbor.Stack import Stack
 
 
@@ -11,7 +7,7 @@ def test_init():
     assert stack.items == []
 
 
-def test_isEmpty():
+def test_is_empty():
     stack = Stack()
     assert stack.isEmpty() is True
     stack = Stack()
