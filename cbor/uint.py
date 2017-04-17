@@ -1,92 +1,75 @@
-from cbor.CBORStream import CBORStream
-from cbor.State import State
-from examples.simple import printer
+# imports
+from CBORStream import CBORStream
+from State import State
+import struct
 
-MAJOR_TYPE_MASK = 0b11100000
+# constants
 ADDITIONAL_DATA_LENGTH_MASK = 0b00011111
-MAJOR_TYPE_SIZE = 3
+NEXT_1BYTE = 24
+NEXT_2BYTE = 25
+NEXT_4BYTE = 26
+NEXT_8BYTE = 27
 
-class UIntInfo(State):
-    def run(self, stream: CBORStream, handler):
-        current_value = stream.peek(1)
-        last_five_bits = ord(current_value) & ADDITIONAL_DATA_LENGTH_MASK
-        if last_five_bits < 24:
-            printer(current_value)
-            return []
-        elif last_five_bits == 24:
-            additional_bytes = 1
-        elif last_five_bits == 25:
-            additional_bytes = 2
-        elif last_five_bits == 26:
-            additional_bytes = 4
-        elif last_five_bits == 27:
-            additional_bytes = 8
 
-        return UIntRead(additional_bytes)
-
-    def type(self):
-        raise NotImplementedError
+def decode_uint(data, length):
+    if length == 1:
+        return ord(struct.pack('B', data))
+    elif length == 2:
+        return ord(struct.pack('BB', data))
+    elif length == 4:
+        return ord(struct.pack('BBBB', data))
+    elif length == 8:
+        return ord(struct.pack('BBBBBBBB', data))
 
 
 class UIntRead(State):
     def __init__(self, n):
         self.n = n
+        self.run(CBORStream)
 
-    def run(self, stream: CBORStream, handler):
-        readed = stream.peek(self.n)
-        printer(readed)
-        return []
+    def run(self, stream: CBORStream, handler=None):
+        current_data = '01010101'  # must be changed to read from stream
+        current_int = int(current_data, 2)  # byte to int conversation
+
+        data = decode_uint(current_int, self.n)
+        # handler(data)
+        print(data)
+        return None
 
     def type(self):
         raise NotImplementedError
 
-# import struct
-# import sys
-#
-# def int_to_cbor_uint(in_bytes):
-#     if in_bytes >= 0x0:#0
-#         if in_bytes <= 0x17:#23
-#             return struct.pack('B', in_bytes)
-#         if in_bytes <= 0x0ff:#255
-#             return struct.pack('BB', 24, in_bytes)
-#         if in_bytes <= 0x0ffff:#65535
-#             return struct.pack('!BH', 25, in_bytes)
-#         if in_bytes <= 0x0ffffffff:#4294967295
-#             return struct.pack('!BI', 26, in_bytes)
-#         if in_bytes <= 0x0ffffffffffffffff:#18446744073709551615
-#             return struct.pack('!BQ', 27, in_bytes)
-#
-# fp = open('workfile', 'wb')
-# fp.write(int_to_cbor_uint(int(sys.argv[1])))
-#
-# fp = open('workfile', 'rb')
-# readed_byte = fp.read(1)
-#
-# first_byte = ord(readed_byte)
-#
-# def construct_uint(first_byte):
-#     if first_byte == 24:
-#         number = fp.read(1)
-#         print(ord(number))
-#         return number
-#     if first_byte == 25:
-#         bytes = fp.read(2)
-#         numbers = struct.unpack('BB', bytes)
-#         res = 256 * numbers[0] + numbers[1]
-#         print(res)
-#         return res
-#     if first_byte == 26:
-#         bytes = fp.read(4)
-#         numbers = struct.unpack('BBBB', bytes)
-#         res = 16777216 * numbers[0] + 65536 * numbers[1] + 256 * numbers[2] + numbers[3]
-#         print(res)
-#         return res
-#     if first_byte == 27:
-#         bytes = fp.read(8)
-#         numbers = struct.unpack('BBBBBBBB', bytes)
-#         res = 72057594037927936 * numbers[0] + 281474976710656 * numbers[1] + 1099511627776 * numbers[2] + 4294967296 * numbers[3] + \
-#               16777216 * numbers[4] + 65536 * numbers[5] + 256 * numbers[6] + numbers[7]
-#         print(res)
-#         return res
-#
-# construct_uint(first_byte)
+
+class UIntInfo(State):
+    def run(self, stream: CBORStream, handler=None):
+
+        current_data = '000011000'  # must be changed to read from stream
+        current_int = int(current_data, 2)  # byte to int conversation
+        last_five_bits = (current_int & ADDITIONAL_DATA_LENGTH_MASK)
+
+        if last_five_bits < 24:
+            data = decode_uint(last_five_bits)
+            # handler(data)
+            print('number itself')
+            return None
+        elif last_five_bits == NEXT_1BYTE:
+            print('1byte')
+            return UIntRead(1)
+        elif last_five_bits == NEXT_2BYTE:
+            print('2byte')
+            return UIntRead(2)
+        elif last_five_bits == NEXT_4BYTE:
+            print('4byte')
+            return UIntRead(4)
+        elif last_five_bits == NEXT_8BYTE:
+            print('8byte')
+            return UIntRead(8)
+        else:
+            return None
+
+    def type(self):
+        raise NotImplementedError
+
+
+UInt = UIntInfo()
+UInt.run(CBORStream)
