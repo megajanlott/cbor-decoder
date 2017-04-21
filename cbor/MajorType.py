@@ -1,6 +1,7 @@
 from cbor.CBORStream import CBORStream
 from cbor.State import State
 from cbor.type.UInt import UIntInfo
+from cbor.type.Neg_Int import NegIntInfo
 
 MAJOR_TYPE_MASK = 0b11100000
 MAJOR_TYPE_SIZE = 3
@@ -17,6 +18,6 @@ class MajorType(State):
             return UIntInfo()
         elif t == 1:
             # should return the proper major type instance
-            return
+            return NegIntInfo()
         elif t == 4:
             return
