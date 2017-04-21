@@ -13,13 +13,23 @@ class ByteString(cbor.State.State):
         elif length < 24:
             handler(stream.read(length))
         elif length == 24:
-            pass
+            handler(stream.read(int_length(stream.read(1))))
         elif length == 25:
-            pass
+            handler(stream.read(int_length(stream.read(2))))
         elif length == 26:
-            pass
+            handler(stream.read(int_length(stream.read(3))))
         elif length == 27:
-            pass
+            handler(stream.read(int_length(stream.read(4))))
         elif length == 31:
-            pass
+            return [cbor.MajorType.MajorType(), ByteStringInf()]
         return []
+
+    def int_length(self, info: bytes):
+        return int.from_bytes(info, byteorder='big')
+
+
+class ByteStringInf(cbor.State.State):
+
+    def run(self, stream: cbor.CBORStream.CBORStream, handler):
+        handler('')
+        return [cbor.MajorType.MajorType(), ByteStringInf()]
