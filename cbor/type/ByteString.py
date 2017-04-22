@@ -3,6 +3,10 @@ import cbor.MajorType
 import cbor.State
 
 
+def int_length(info: bytes):
+    return int.from_bytes(info, byteorder='big')
+
+
 class ByteString(cbor.State.State):
 
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
@@ -23,9 +27,6 @@ class ByteString(cbor.State.State):
         elif length == 31:
             return [cbor.MajorType.MajorType(), ByteStringInf()]
         return []
-
-    def int_length(self, info: bytes):
-        return int.from_bytes(info, byteorder='big')
 
 
 class ByteStringInf(cbor.State.State):
