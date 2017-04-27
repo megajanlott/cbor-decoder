@@ -7,8 +7,8 @@ def int_length(info: bytes):
     return int.from_bytes(info, byteorder='big')
 
 
-def str_from_bytes(b: bytes):
-    return ''.join('{:02x}'.format(x) for x in b);
+def str_from_bytes(info: bytes):
+    return ''.join('{:02x}'.format(x) for x in info)
 
 
 class ByteString(cbor.State.State):
