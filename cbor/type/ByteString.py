@@ -7,6 +7,10 @@ def int_length(info: bytes):
     return int.from_bytes(info, byteorder='big')
 
 
+def str_from_bytes(b: bytes):
+    return ''.join('{:02x}'.format(x) for x in b);
+
+
 class ByteString(cbor.State.State):
 
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
@@ -15,15 +19,20 @@ class ByteString(cbor.State.State):
         if length == 0:
             handler('')
         elif length < 24:
-            handler(stream.read(length))
+            data = stream.read(length)
+            handler(str_from_bytes(data))
         elif length == 24:
-            handler(stream.read(int_length(stream.read(1))))
+            data = stream.read(int_length(stream.read(1)))
+            handler(str_from_bytes(data))
         elif length == 25:
-            handler(stream.read(int_length(stream.read(2))))
+            data = stream.read(int_length(stream.read(2)))
+            handler(str_from_bytes(data))
         elif length == 26:
-            handler(stream.read(int_length(stream.read(3))))
+            data = stream.read(int_length(stream.read(3)))
+            handler(str_from_bytes(data))
         elif length == 27:
-            handler(stream.read(int_length(stream.read(4))))
+            data = stream.read(int_length(stream.read(4)))
+            handler(str_from_bytes(data))
         elif length == 31:
             return [cbor.MajorType.MajorType(), ByteStringInf()]
         return []
