@@ -1,5 +1,7 @@
 from cbor.CBORStream import CBORStream
 from cbor.State import State
+from cbor.type.ByteString import ByteString
+from cbor.type.TextString import TextString
 from cbor.type.Array import ArrayInfo
 
 MAJOR_TYPE_MASK = 0b11100000
@@ -18,6 +20,10 @@ class MajorType(State):
         elif t == 1:
             # should return the proper major type instance
             return
+        elif t == 2:
+            return ByteString()
+        elif t == 3:
+            return TextString()
         elif t == 4:
             return ArrayInfo()
 
