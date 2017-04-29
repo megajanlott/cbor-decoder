@@ -75,7 +75,7 @@ def test_run_tag_length_multibyte():
 def test_run_tag_read():
     handler = MockHandler()
 
-    # Empty array.
+    # No output expected.
     data = CBORStream(BytesIO(bytes([0b11000000])))
     stack = TagInfo().run(data, handler.handler)
     assert len(stack) == 1
