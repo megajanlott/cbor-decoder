@@ -12,7 +12,7 @@ class ArrayInfo(cbor.State.State):
         if length == 0:
             handler(']')
         elif length < 24:
-            return [cbor.MajorType.MajorType(), ArrayRead(length)]
+            return [ArrayRead(length), cbor.MajorType.MajorType()]
         elif length == 24:
             return [ArrayLen(1)]
         elif length == 25:
@@ -22,7 +22,7 @@ class ArrayInfo(cbor.State.State):
         elif length == 27:
             return [ArrayLen(8)]
         elif length == 31:
-            return [cbor.MajorType.MajorType(), ArrayInf()]
+            return [ArrayInf(), cbor.MajorType.MajorType()]
         return []
 
 
@@ -37,7 +37,7 @@ class ArrayRead(cbor.State.State):
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         if self.n > 1:
             handler(',')
-            return [cbor.MajorType.MajorType(), ArrayRead(self.n - 1)]
+            return [ArrayRead(self.n - 1), cbor.MajorType.MajorType()]
         handler(']')
         return []
 
@@ -53,11 +53,11 @@ class ArrayLen(cbor.State.State):
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         info = stream.read(self.n)
         length = int.from_bytes(info, byteorder='big')
-        return [cbor.MajorType.MajorType(), ArrayRead(length)]
+        return [ArrayRead(length), cbor.MajorType.MajorType()]
 
 
 class ArrayInf(cbor.State.State):
 
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         handler(',')
-        return [cbor.MajorType.MajorType(), ArrayInf()]
+        return [ArrayInf(), cbor.MajorType.MajorType()]

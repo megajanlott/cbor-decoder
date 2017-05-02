@@ -3,6 +3,7 @@ from cbor.MajorType import MajorType
 from cbor.CBORStream import CBORStream
 from cbor.type.Array import ArrayInfo, ArrayRead, ArrayLen
 from tests.MockHandler import MockHandler
+from cbor.Decoder import Decoder
 
 
 def ignore_handler(v):
@@ -19,9 +20,9 @@ def test_run_array_length():
     data = CBORStream(BytesIO(bytes([0b10000011])))
     stack = ArrayInfo().run(data, ignore_handler)
     assert len(stack) == 2
-    assert type(stack[0]) == MajorType
-    assert type(stack[1]) == ArrayRead
-    assert stack[1] == ArrayRead(3)
+    assert type(stack[0]) == ArrayRead
+    assert stack[0] == ArrayRead(3)
+    assert type(stack[1]) == MajorType
 
 
 def test_run_array_length_multibyte():
@@ -35,9 +36,9 @@ def test_run_array_length_multibyte():
     assert stack[0] == ArrayLen(1)
     stack2 = stack[0].run(data, ignore_handler)
     assert len(stack2) == 2
-    assert type(stack2[0]) == MajorType
-    assert type(stack2[1]) == ArrayRead
-    assert stack2[1] == ArrayRead(1)
+    assert type(stack2[0]) == ArrayRead
+    assert stack2[0] == ArrayRead(1)
+    assert type(stack2[1]) == MajorType
 
     # Array length on 2 bytes.
     data = CBORStream(BytesIO(bytes([
@@ -49,9 +50,9 @@ def test_run_array_length_multibyte():
     assert stack[0] == ArrayLen(2)
     stack2 = stack[0].run(data, ignore_handler)
     assert len(stack2) == 2
-    assert type(stack2[0]) == MajorType
-    assert type(stack2[1]) == ArrayRead
-    assert stack2[1] == ArrayRead(1 << 8)
+    assert type(stack2[0]) == ArrayRead
+    assert stack2[0] == ArrayRead(1 << 8)
+    assert type(stack2[1]) == MajorType
 
     # Array length on 4 bytes.
     data = CBORStream(BytesIO(bytes([
@@ -63,9 +64,9 @@ def test_run_array_length_multibyte():
     assert stack[0] == ArrayLen(4)
     stack2 = stack[0].run(data, ignore_handler)
     assert len(stack2) == 2
-    assert type(stack2[0]) == MajorType
-    assert type(stack2[1]) == ArrayRead
-    assert stack2[1] == ArrayRead(1 << 24)
+    assert type(stack2[0]) == ArrayRead
+    assert stack2[0] == ArrayRead(1 << 24)
+    assert type(stack2[1]) == MajorType
 
     # Array length on 8 bytes.
     data = CBORStream(BytesIO(bytes([
@@ -77,9 +78,9 @@ def test_run_array_length_multibyte():
     assert stack[0] == ArrayLen(8)
     stack2 = stack[0].run(data, ignore_handler)
     assert len(stack2) == 2
-    assert type(stack2[0]) == MajorType
-    assert type(stack2[1]) == ArrayRead
-    assert stack2[1] == ArrayRead(1 << 56)
+    assert type(stack2[0]) == ArrayRead
+    assert stack2[0] == ArrayRead(1 << 56)
+    assert type(stack2[1]) == MajorType
 
 
 def test_run_array_read():
@@ -90,3 +91,26 @@ def test_run_array_read():
     stack = ArrayInfo().run(data, handler.handler)
     assert len(stack) == 0
     handler.assert_data('[]')
+
+
+def test_run_array_single_element():
+    handler = MockHandler()
+
+    # Empty array.
+    d = Decoder()
+    data = bytes([0b10000001, 0b10000000])
+    d.decode_array(data, handler.handler)
+    handler.assert_data('[[]]')
+
+
+def test_run_array_two_elements():
+    handler = MockHandler()
+
+    # Empty array.
+    d = Decoder()
+    data = bytes([
+        0b10000010,
+        0b10000000,
+        0b10000000])
+    d.decode_array(data, handler.handler)
+    handler.assert_data('[[],[]]')
