@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
 
 import pytest
-pytest.main(['-x', 'tests'])
+import sys
+status = pytest.main(['-x', 'tests'])
+sys.exit(status)
