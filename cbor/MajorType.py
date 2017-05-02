@@ -1,9 +1,10 @@
 from cbor.CBORStream import CBORStream
 from cbor.State import State
-from cbor.type.ByteString import ByteString
-from cbor.type.TextString import TextString
 from cbor.type.Array import ArrayInfo
+from cbor.type.ByteString import ByteString
 from cbor.type.Map import MapInfo
+from cbor.type.Tag import TagInfo
+from cbor.type.TextString import TextString
 
 MAJOR_TYPE_MASK = 0b11100000
 MAJOR_TYPE_SIZE = 3
@@ -29,5 +30,7 @@ class MajorType(State):
             return ArrayInfo()
         elif t == 5:
             return MapInfo()
+        elif t == 6:
+            return TagInfo()
 
         return
