@@ -37,7 +37,7 @@ def test_run_tag_length_multibyte():
 
     # Tag length on 2 bytes.
     data = CBORStream(BytesIO(bytes([
-        0b10011001, 0b1, 0b0
+        0b11011001, 0b1, 0b0
     ])))
     stack = TagInfo().run(data, ignore_handler)
     assert len(stack) == 1
@@ -49,7 +49,7 @@ def test_run_tag_length_multibyte():
 
     # Tag length on 4 bytes.
     data = CBORStream(BytesIO(bytes([
-        0b10011010, 0b1, 0b0, 0b0, 0b0
+        0b11011010, 0b1, 0b0, 0b0, 0b0
     ])))
     stack = TagInfo().run(data, ignore_handler)
     assert len(stack) == 1
@@ -61,7 +61,7 @@ def test_run_tag_length_multibyte():
 
     # Tag length on 8 bytes.
     data = CBORStream(BytesIO(bytes([
-        0b10011011, 0b1, 0b0, 0b0, 0b0, 0b0, 0b0, 0b0, 0b0
+        0b11011011, 0b1, 0b0, 0b0, 0b0, 0b0, 0b0, 0b0, 0b0
     ])))
     stack = TagInfo().run(data, ignore_handler)
     assert len(stack) == 1
