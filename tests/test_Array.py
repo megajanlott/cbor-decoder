@@ -3,6 +3,7 @@ from cbor.MajorType import MajorType
 from cbor.CBORStream import CBORStream
 from cbor.type.Array import ArrayInfo, ArrayRead, ArrayLen
 from tests.MockHandler import MockHandler
+from cbor.Decoder import Decoder
 
 
 def ignore_handler(v):
@@ -90,3 +91,26 @@ def test_run_array_read():
     stack = ArrayInfo().run(data, handler.handler)
     assert len(stack) == 0
     handler.assert_data('[]')
+
+
+def test_run_array_single_element():
+    handler = MockHandler()
+
+    # Empty array.
+    d = Decoder()
+    data = bytes([0b10000001, 0b10000000])
+    d.decode_array(data, handler.handler)
+    handler.assert_data('[[]]')
+
+
+def test_run_array_two_elements():
+    handler = MockHandler()
+
+    # Empty array.
+    d = Decoder()
+    data = bytes([
+        0b10000010,
+        0b10000000,
+        0b10000000])
+    d.decode_array(data, handler.handler)
+    handler.assert_data('[[],[]]')
