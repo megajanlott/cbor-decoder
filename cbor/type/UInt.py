@@ -19,7 +19,8 @@ def decode_uint(data, length):
         return (256 * numbers[0] + numbers[1])
     elif length == 4:
         numbers = struct.unpack('BBBB', data)
-        return (16777216 * numbers[0] + 65536 * numbers[1] + 256 * numbers[2] + numbers[3])
+        return (16777216 * numbers[0] + 65536 * numbers[1] +
+                256 * numbers[2] + numbers[3])
     elif length == 8:
         numbers = struct.unpack('BBBBBBBB', data)
         return (72057594037927936 * numbers[0] + 281474976710656 *
