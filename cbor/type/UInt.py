@@ -22,8 +22,10 @@ def decode_uint(data, length):
         return (16777216 * numbers[0] + 65536 * numbers[1] + 256 * numbers[2] + numbers[3])
     elif length == 8:
         numbers = struct.unpack('BBBBBBBB', data)
-        return (72057594037927936 * numbers[0] + 281474976710656 * numbers[1] + 1099511627776 * numbers[2] + 4294967296 * numbers[3] + \
-        16777216 * numbers[4] + 65536 * numbers[5] + 256 * numbers[6] + numbers[7])
+        return (72057594037927936 * numbers[0] + 281474976710656 *
+                numbers[1] + 1099511627776 * numbers[2] +
+                4294967296 * numbers[3] + 16777216 * numbers[4] +
+                65536 * numbers[5] + 256 * numbers[6] + numbers[7])
 
 
 class UIntRead(cbor.State.State):

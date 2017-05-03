@@ -44,7 +44,8 @@ def test_run_uint_multibyte():
 
     # UInt length on 8 byte.
     data = CBORStream(BytesIO(bytes([
-        0b00011011, 0b11100101, 0b00100101, 0b11101101, 0b00000101, 0b11100101, 0b00100101, 0b11101101, 0b00000101
+        0b00011011, 0b11100101, 0b00100101, 0b11101101, 0b00000101,
+        0b11100101, 0b00100101, 0b11101101, 0b00000101
     ])))
     stack = UIntInfo().run(data, ignore_handler)
     assert stack == 16511864218398878981
