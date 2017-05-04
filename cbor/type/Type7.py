@@ -66,7 +66,6 @@ class Type7Read(cbor.State.State):
 
         simple_value = decode_simple_value(value)
         handler(simple_value)
-        #self.none = None
         return []
 
 
@@ -79,7 +78,6 @@ class FloatRead(cbor.State.State):
         self.n = n
 
     def run(self, stream: cbor.CBORStream, handler):
-        #value = stream.read(self.n)
         data = []
         for _ in range(0, self.n):
             current = stream.read(1)
