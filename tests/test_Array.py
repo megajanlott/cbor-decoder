@@ -119,6 +119,5 @@ def test_run_array_two_elements():
 def test_array_inf_stop():
     handler = MockHandler()
 
-    ArrayInfClose().run (handler.handler)
+    ArrayInfClose().run(handler.handler)
     handler.assert_data(']')
-

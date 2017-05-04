@@ -150,5 +150,5 @@ def test_run_map_two_elements():
 def test_array_inf_stop():
     handler = MockHandler()
 
-    MapInfClose().run (handler.handler)
+    MapInfClose().run(handler.handler)
     handler.assert_data('}')

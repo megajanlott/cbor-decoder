@@ -8,6 +8,7 @@ from cbor.type.Map import MapInfValue, MapInfKey, MapInfClose
 from cbor.type.TextString import TextStringInf
 from cbor.type.ByteString import ByteStringInf
 
+
 class Decoder:
     def close_inf(self, type, handler):
         if type == ArrayInf:
@@ -43,7 +44,8 @@ class Decoder:
             top = stack.pop()
 
             if type(top) == str and top == 'break':
-                # should be ArrayInf, MapInfValue, MapInfKey, ByteStringInf, TextStringInf
+                # should be ArrayInf, MapInfValue, MapInfKey
+                # ByteStringInf, TextStringInf
                 inf_type = stack.pop()
                 Decoder.close_inf(inf_type, handler)
             else:
