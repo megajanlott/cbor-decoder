@@ -70,12 +70,6 @@ def test_Type7Info_inf_end():
     assert len(stack) == 1
     assert stack[0] == 'break'
 
-def test_Type7Info_inf_end_vmi():
-    data = CBORStream(BytesIO(bytes([0b11111001])))
-    result = Type7Info().run(data)
-    assert type(result) == FloatRead
-    assert result.bytes_to_read == 2
-
 def test_Type7Read_pass():
     data = CBORStream(BytesIO(bytes([0b00000110])))
     stack = Type7Read().run(data, ignore_handler)
