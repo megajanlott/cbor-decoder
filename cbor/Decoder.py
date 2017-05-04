@@ -47,7 +47,7 @@ class Decoder:
                 # should be ArrayInf, MapInfValue, MapInfKey
                 # ByteStringInf, TextStringInf
                 inf_type = stack.pop()
-                Decoder.close_inf(inf_type, handler)
+                self.close_inf(inf_type, handler)
             else:
                 new_states = top.run(stream, handler)
 
