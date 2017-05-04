@@ -20,7 +20,7 @@ def test_Type7Info_True():
     data = CBORStream(BytesIO(bytes([0b00010101])))
     stack = Type7Info().run(data, handler.handler)
     assert len(stack) == 0
-    handler.assert_data('True')
+    handler.assert_data('true')
 
 
 def test_Type7Info_False():
@@ -28,7 +28,7 @@ def test_Type7Info_False():
     data = CBORStream(BytesIO(bytes([0b00010100])))
     stack = Type7Info().run(data, handler.handler)
     assert len(stack) == 0
-    handler.assert_data('False')
+    handler.assert_data('false')
 
 
 def test_Type7Info_Null():
@@ -36,7 +36,7 @@ def test_Type7Info_Null():
     data = CBORStream(BytesIO(bytes([0b00010110])))
     stack = Type7Info().run(data, handler.handler)
     assert len(stack) == 0
-    handler.assert_data('Null')
+    handler.assert_data('null')
 
 
 def test_Type7Info_simple_value_next():
