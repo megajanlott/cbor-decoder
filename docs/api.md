@@ -2,7 +2,7 @@
 
 ## Installation
 
-You can also install `cbor-decoder` from PyPI:
+You can install `cbor-decoder` from PyPI:
 
 ```
 $ pip install cbor-decoder
