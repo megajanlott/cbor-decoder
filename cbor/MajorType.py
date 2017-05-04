@@ -6,7 +6,7 @@ from cbor.type.Map import MapInfo
 from cbor.type.Tag import TagInfo
 from cbor.type.TextString import TextString
 from cbor.type.UInt import UIntInfo
-from cbor.type.Neg_Int import NegIntInfo
+from cbor.type.NegInt import NegIntInfo
 
 MAJOR_TYPE_MASK = 0b11100000
 MAJOR_TYPE_SIZE = 3

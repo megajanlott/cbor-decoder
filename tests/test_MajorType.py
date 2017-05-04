@@ -2,7 +2,7 @@ from io import BytesIO
 from cbor.MajorType import MajorType
 from cbor.CBORStream import CBORStream
 from cbor.type.UInt import UIntInfo
-from cbor.type.Neg_Int import NegIntInfo
+from cbor.type.NegInt import NegIntInfo
 
 
 def test_run_uint():
