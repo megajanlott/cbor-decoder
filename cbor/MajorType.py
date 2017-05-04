@@ -5,6 +5,8 @@ from cbor.type.ByteString import ByteString
 from cbor.type.Map import MapInfo
 from cbor.type.Tag import TagInfo
 from cbor.type.TextString import TextString
+from cbor.type.UInt import UIntInfo
+from cbor.type.NegInt import NegIntInfo
 
 MAJOR_TYPE_MASK = 0b11100000
 MAJOR_TYPE_SIZE = 3
@@ -18,10 +20,10 @@ class MajorType(State):
 
         if t == 0:
             # should return the proper major type instance
-            return
+            return UIntInfo()
         elif t == 1:
             # should return the proper major type instance
-            return
+            return NegIntInfo()
         elif t == 2:
             return ByteString()
         elif t == 3:
