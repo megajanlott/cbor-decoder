@@ -5,8 +5,10 @@ from tests.MockHandler import MockHandler
 
 from cbor.type.Type7 import Type7Info, FloatRead, Type7Read
 
+
 def ignore_handler(v):
     return
+
 
 def test_run_type7_probe():
     data = CBORStream(BytesIO(bytes([0b11100001])))
