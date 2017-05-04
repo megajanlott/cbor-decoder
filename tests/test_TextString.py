@@ -16,7 +16,7 @@ def test_run_text_string_read():
     data = CBORStream(BytesIO(encoded_data))
     stack = TextString().run(data, handler.handler)
     assert len(stack) == 0
-    handler.assert_data('')
+    handler.assert_data('\"\"')
 
 
 def test_run_text_string_read_a():
@@ -25,7 +25,7 @@ def test_run_text_string_read_a():
     data = CBORStream(BytesIO(encoded_data))
     stack = TextString().run(data, handler.handler)
     assert len(stack) == 0
-    handler.assert_data('a')
+    handler.assert_data('\"a\"')
 
 
 def test_run_text_string_read_ietf():
@@ -34,4 +34,4 @@ def test_run_text_string_read_ietf():
     data = CBORStream(BytesIO(encoded_data))
     stack = TextString().run(data, handler.handler)
     assert len(stack) == 0
-    handler.assert_data('IETF')
+    handler.assert_data('\"IETF\"')

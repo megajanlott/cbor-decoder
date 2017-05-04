@@ -16,8 +16,9 @@ class TextString(cbor.State.State):
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         info = stream.read(1)
         length = ord(info) & 0b00011111
-        if length == 0:
-            handler('')
+        handler('\"')
+        if length == 31:
+            return [cbor.MajorType.MajorType(), TextStringInf()]
         elif length < 24:
             handler(decode_utf_bytes(stream.read(length)))
         elif length == 24:
@@ -28,8 +29,9 @@ class TextString(cbor.State.State):
             handler(decode_utf_bytes(stream.read(int_length(stream.read(3)))))
         elif length == 27:
             handler(decode_utf_bytes(stream.read(int_length(stream.read(4)))))
-        elif length == 31:
-            return [cbor.MajorType.MajorType(), TextStringInf()]
+        elif length == 0:
+            handler('')
+        handler('\"')
         return []
 
 

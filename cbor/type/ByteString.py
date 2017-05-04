@@ -16,8 +16,9 @@ class ByteString(cbor.State.State):
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         info = stream.read(1)
         length = ord(info) & 0b00011111
-        if length == 0:
-            handler('')
+        handler('\"')
+        if length == 31:
+            return [cbor.MajorType.MajorType(), ByteStringInf()]
         elif length < 24:
             data = stream.read(length)
             handler(str_from_bytes(data))
@@ -33,8 +34,9 @@ class ByteString(cbor.State.State):
         elif length == 27:
             data = stream.read(int_length(stream.read(4)))
             handler(str_from_bytes(data))
-        elif length == 31:
-            return [cbor.MajorType.MajorType(), ByteStringInf()]
+        elif length == 0:
+            handler('')
+        handler('\"')
         return []
 
 

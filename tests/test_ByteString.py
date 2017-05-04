@@ -16,7 +16,7 @@ def test_run_byte_string_read():
     data = CBORStream(BytesIO(encoded_data))
     stack = ByteString().run(data, handler.handler)
     assert len(stack) == 0
-    handler.assert_data('')
+    handler.assert_data('\"\"')
 
 
 def test_run_byte_string_read_value():
@@ -25,4 +25,4 @@ def test_run_byte_string_read_value():
     data = CBORStream(BytesIO(encoded_data))
     stack = ByteString().run(data, handler.handler)
     assert len(stack) == 0
-    handler.assert_data('01020304')
+    handler.assert_data('\"01020304\"')
