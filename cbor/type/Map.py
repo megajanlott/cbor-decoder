@@ -82,3 +82,9 @@ class MapInfValue(cbor.State.State):
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         handler(':')
         return [MapInfKey(), cbor.MajorType.MajorType()]
+
+
+class MapInfClose(cbor.State.State):
+
+    def run(self, handler):
+        handler('}')

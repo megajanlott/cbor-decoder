@@ -61,3 +61,9 @@ class ArrayInf(cbor.State.State):
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         handler(',')
         return [ArrayInf(), cbor.MajorType.MajorType()]
+
+
+class ArrayInfClose(cbor.State.State):
+
+    def run(self, handler):
+        handler(']')
