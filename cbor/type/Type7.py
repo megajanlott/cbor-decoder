@@ -1,7 +1,8 @@
+import struct
 import cbor.CBORStream
 import cbor.MajorType
 import cbor.State
-import struct
+
 
 ADDITIONAL_INFORMATION_MASK = 0b00011111
 
@@ -80,7 +81,7 @@ class FloatRead(cbor.State.State):
     def run(self, stream: cbor.CBORStream, handler):
         #value = stream.read(self.n)
         data = []
-        for i in range(0, self.n):
+        for _ in range(0, self.n):
             current = stream.read(1)
             current = int.from_bytes(current, byteorder='big')
             data.append(current)

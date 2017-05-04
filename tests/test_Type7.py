@@ -3,7 +3,7 @@ from cbor.MajorType import MajorType
 from cbor.CBORStream import CBORStream
 from tests.MockHandler import MockHandler
 
-from cbor.type.Type7 import *
+from cbor.type.Type7 import Type7Info, FloatRead, Type7Read
 
 #sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '..'))
 
