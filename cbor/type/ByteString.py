@@ -44,4 +44,4 @@ class ByteStringInf(cbor.State.State):
 
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         handler('')
-        return [cbor.MajorType.MajorType(), ByteStringInf()]
+        return [ByteStringInf(), cbor.MajorType.MajorType()]
