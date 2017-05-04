@@ -85,12 +85,12 @@ class FloatRead(cbor.State.State):
             data.append(current)
         if self.n == 2:
             value = struct.pack('2B', *data)
-            float_value = struct.unpack('e', value)
+            float_value = struct.unpack('>e', value)
         if self.n == 4:
             value = struct.pack('4B', *data)
             float_value = struct.unpack('>f', value)
         if self.n == 8:
             value = struct.pack('8B', *data)
-            float_value = struct.unpack('d', value)
+            float_value = struct.unpack('>d', value)
         handler(str(float_value[0]))
         return []
