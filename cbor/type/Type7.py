@@ -25,7 +25,7 @@ def decode_simple_value(value):
     elif value == 23:
         # undefined
         return []
-    elif ((value >= 24) & (value <= 31)):
+    elif (value >= 24) & (value <= 31):
         # reserved
         return []
     else:
@@ -80,7 +80,7 @@ class FloatRead(cbor.State.State):
     def run(self, stream: cbor.CBORStream, handler):
         #value = stream.read(self.n)
         data = []
-        for i in range(0,self.n):
+        for i in range(0, self.n):
             current = stream.read(1)
             current = int.from_bytes(current, byteorder='big')
             data.append(current)
@@ -93,5 +93,5 @@ class FloatRead(cbor.State.State):
         if self.n == 8:
             value = struct.pack('8B', *data)
             float_value = struct.unpack('d', value)
-        handler(str(float_value))
+        handler(str(float_value[0]))
         return []
