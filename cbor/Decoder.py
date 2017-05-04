@@ -42,7 +42,7 @@ class Decoder:
         while not stack.isEmpty():
             top = stack.pop()
 
-            if top == 'break':
+            if type(top) == str and top == 'break':
                 # should be ArrayInf, MapInfValue, MapInfKey, ByteStringInf, TextStringInf
                 inf_type = stack.pop()
                 Decoder.close_inf(inf_type, handler)

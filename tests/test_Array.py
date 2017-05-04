@@ -115,8 +115,10 @@ def test_run_array_two_elements():
     d.decode_array(data, handler.handler)
     handler.assert_data('[[],[]]')
 
+
 def test_array_inf_stop():
     handler = MockHandler()
 
     ArrayInfClose().run (handler.handler)
     handler.assert_data(']')
+
