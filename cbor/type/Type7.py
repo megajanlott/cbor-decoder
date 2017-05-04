@@ -18,11 +18,11 @@ def decode_simple_value(value):
         # unassigned
         return []
     elif value == 20:
-        return 'False'
+        return 'false'
     elif value == 21:
-        return 'True'
+        return 'true'
     elif value == 22:
-        return 'Null'
+        return 'null'
     elif value == 23:
         # undefined
         return []
