@@ -42,7 +42,8 @@ class Type7Info(cbor.State.State):
         add_inf = (current & ADDITIONAL_INFORMATION_MASK)
 
         if add_inf < 24:
-            handler(str(add_inf))
+            simple_value = decode_simple_value(add_inf)
+            handler(simple_value)
             return []
         elif add_inf == simple_value_next:
             return [Type7Read()]
@@ -77,14 +78,20 @@ class FloatRead(cbor.State.State):
         self.n = n
 
     def run(self, stream: cbor.CBORStream, handler):
-        value = stream.read(self.n)
+        #value = stream.read(self.n)
+        data = []
+        for i in range(0,self.n):
+            current = stream.read(1)
+            current = int.from_bytes(current, byteorder='big')
+            data.append(current)
         if self.n == 2:
+            value = struct.pack('2B', *data)
             float_value = struct.unpack('e', value)
         if self.n == 4:
-            float_value = struct.unpack('f', value)
+            value = struct.pack('4B', *data)
+            float_value = struct.unpack('>f', value)
         if self.n == 8:
+            value = struct.pack('8B', *data)
             float_value = struct.unpack('d', value)
-        #int_value = int.from_bytes(value, byteorder='big')
-        #float_value = float(int_value, 0)
-        handler(float_value)
+        handler(str(float_value))
         return []

@@ -5,6 +5,7 @@ from cbor.type.ByteString import ByteString
 from cbor.type.Map import MapInfo
 from cbor.type.Tag import TagInfo
 from cbor.type.TextString import TextString
+from cbor.type.Type7 import Type7Info
 
 MAJOR_TYPE_MASK = 0b11100000
 MAJOR_TYPE_SIZE = 3
@@ -32,5 +33,7 @@ class MajorType(State):
             return MapInfo()
         elif t == 6:
             return TagInfo()
+        elif t == 7:
+            return Type7Info()
 
         return
