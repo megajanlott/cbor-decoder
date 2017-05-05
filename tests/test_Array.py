@@ -1,7 +1,7 @@
 from io import BytesIO
 from cbor.MajorType import MajorType
 from cbor.CBORStream import CBORStream
-from cbor.type.Array import ArrayInfo, ArrayRead, ArrayLen
+from cbor.type.Array import ArrayInfo, ArrayRead, ArrayLen, ArrayInfClose
 from tests.MockHandler import MockHandler
 from cbor.Decoder import Decoder
 
@@ -114,3 +114,10 @@ def test_run_array_two_elements():
         0b10000000])
     d.decode_array(data, handler.handler)
     handler.assert_data('[[],[]]')
+
+
+def test_array_inf_stop():
+    handler = MockHandler()
+
+    ArrayInfClose(handler.handler)
+    handler.assert_data(']')

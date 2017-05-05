@@ -145,3 +145,10 @@ def test_run_map_two_elements():
     d.decode_array(data, handler.handler)
     print(handler.data)
     handler.assert_data('{{}:{},{}:{}}')
+
+
+def test_array_inf_stop():
+    handler = MockHandler()
+
+    MapInfClose(handler.handler)
+    handler.assert_data('}')

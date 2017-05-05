@@ -59,5 +59,10 @@ class ArrayLen(cbor.State.State):
 class ArrayInf(cbor.State.State):
 
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
-        handler(',')
+        if stream.peek(1) != b'\xff':
+            handler(',')
         return [ArrayInf(), cbor.MajorType.MajorType()]
+
+
+def ArrayInfClose(handler):
+    handler(']')
