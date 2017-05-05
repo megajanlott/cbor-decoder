@@ -1,3 +1,6 @@
+import json
+
+
 class MockHandler:
 
     def __init__(self):
@@ -7,5 +10,5 @@ class MockHandler:
         self.data += value
 
     def assert_data(self, data):
-        assert self.data == data
+        assert self.data == data.encode().decode('unicode-escape')
         self.data = ''
