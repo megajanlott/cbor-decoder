@@ -73,7 +73,8 @@ class MapReadValue(cbor.State.State):
 class MapInfKey(cbor.State.State):
 
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
-        handler(',')
+        if stream.peek(1) != b'\xff':
+            handler(',')
         return [MapInfValue(), cbor.MajorType.MajorType()]
 
 
@@ -84,7 +85,5 @@ class MapInfValue(cbor.State.State):
         return [MapInfKey(), cbor.MajorType.MajorType()]
 
 
-class MapInfClose(cbor.State.State):
-
-    def run(self, handler):
-        handler('}')
+def MapInfClose(handler):
+    handler('}')

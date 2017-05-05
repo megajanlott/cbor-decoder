@@ -45,3 +45,7 @@ class ByteStringInf(cbor.State.State):
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         handler('')
         return [ByteStringInf(), cbor.MajorType.MajorType()]
+
+
+def ByteStringInfClose(handler):
+    handler('\"')

@@ -5,20 +5,21 @@ from cbor.MajorType import MajorType
 from cbor.Stack import Stack
 from cbor.type.Array import ArrayInf, ArrayInfClose
 from cbor.type.Map import MapInfValue, MapInfKey, MapInfClose
-from cbor.type.TextString import TextStringInf
-from cbor.type.ByteString import ByteStringInf
+from cbor.type.TextString import TextStringInf, TextStringInfClose
+from cbor.type.ByteString import ByteStringInf, ByteStringInfClose
 
 
 class Decoder:
-    def close_inf(self, type, handler):
-        if type == ArrayInf:
+    def close_inf(self, inf_type, handler):
+        if type(inf_type) == ArrayInf:
+            print('kecske')
             ArrayInfClose(handler)
-        elif (type == MapInfValue) or (type == MapInfKey):
+        elif (type(inf_type) == MapInfValue) or (type(inf_type) == MapInfKey):
             MapInfClose(handler)
-        if type == TextStringInf:
-            pass
-        if type == ByteStringInf:
-            pass
+        if type(inf_type) == TextStringInf:
+            TextStringInfClose(handler)
+        if type(inf_type) == ByteStringInf:
+            ByteStringInfClose(handler)
 
     def decode_array(self, array: bytes, handler):
         decode_stream = CBORStream(BytesIO(array))

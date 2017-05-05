@@ -40,3 +40,7 @@ class TextStringInf(cbor.State.State):
     def run(self, stream: cbor.CBORStream.CBORStream, handler):
         handler('')
         return [TextStringInf(), cbor.MajorType.MajorType()]
+
+
+def TextStringInfClose(handler):
+    handler('\"')
