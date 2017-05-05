@@ -13,7 +13,7 @@ def printer(data):
 if __name__ == '__main__':
     d = Decoder()
 
-    data = bytearray.fromhex('A163617364A26161F46162836178FB 3FF3D70A3D70A3D7A1617A63717171')
+    data = bytearray.fromhex('830182020363616263')
 
     print('')
 
